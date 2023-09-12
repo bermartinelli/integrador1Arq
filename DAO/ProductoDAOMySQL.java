@@ -3,6 +3,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -44,5 +45,32 @@ public class ProductoDAOMySQL implements DAO<Producto>{
         } catch (SQLException error) {
             error.printStackTrace();
         }
+    }
+
+    public Producto elMasRecaudador() {
+        Producto producto = null;
+        try{
+            String query = "SELECT producto.idProducto, producto.nombre, producto.valor, (SUM(factura_producto.cantidad) * producto.valor) AS FACTURADO " +
+                    "FROM producto JOIN factura_producto ON producto.idProducto = factura_producto.idProducto " +
+                    "GROUP BY producto.idProducto " +
+                    "ORDER BY FACTURADO DESC " +
+                    "LIMIT 1;";
+
+            //this.connection.prepareStatement(query).execute();
+            //this.connection.commit();
+            PreparedStatement ps = this.connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Integer id = rs.getInt(1);
+                String nombre = rs.getString(2);
+                Integer valor = rs.getInt(4);
+               producto = new Producto(id, nombre, valor);
+            }
+            ps.close();
+
+            this.connection.commit();
+        } catch (SQLException error) {
+            error.printStackTrace();
+        } return producto;
     }
 }

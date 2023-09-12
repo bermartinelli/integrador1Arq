@@ -33,7 +33,7 @@ public class Main {
        daoProducto.createTable();
        daoFacturaProducto.createTable();
 
-       //CARGA DE CLIENTES
+       /*//CARGA DE CLIENTES
         CSVParser parserCliente = CSVFormat.DEFAULT.withHeader().parse(new
                 FileReader("csv/clientes.csv"));
         for(CSVRecord row: parserCliente) {
@@ -64,8 +64,8 @@ public class Main {
             Factura_Producto FP = new Factura_Producto(parseInt(row.get("idFactura")), parseInt(row.get("idProducto")), parseInt(row.get("cantidad")));
             daoFacturaProducto.insert(FP);
         }
+*/
 
-
-
+        System.out.println(daoProducto.elMasRecaudador());
     }
 }
