@@ -71,12 +71,14 @@ public class Main {
             //Escriba un programa JDBC que retorne el producto que más recaudó. Se define “recaudación” como cantidad de productos vendidos multiplicado por su valor.
             System.out.println(daoProducto.elMasRecaudador());
 
+
             //Escriba un programa JDBC que imprima una lista de clientes, ordenada por a cuál se le facturó más.
-            System.out.println("Lista de Clientes");
-            Iterator<Cliente> it = daoCliente.OrdenarPorRecaudacion().iterator();
+        System.out.printf("%-10s %-35s %.40s%n", "ID", "Nombre", "Correo");
+
+        Iterator<Cliente> it = daoCliente.OrdenarPorRecaudacion().iterator();
             while (it.hasNext()) {
                 Cliente c = it.next();
-                System.out.println("ID=" + c.getIdCliente() + ", Nombre: " + c.getNombre() +", Email: " +c.getEmail());
+                System.out.printf("%-10d %-35s %.40s%n", c.getIdCliente(), c.getNombre(), c.getEmail());
             }
 
     }
