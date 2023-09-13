@@ -9,6 +9,9 @@ import Entidades.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import Factory.DAOFactory;
 
 
@@ -65,7 +68,16 @@ public class Main {
             daoFacturaProducto.insert(FP);
         }
 */
+            //Escriba un programa JDBC que retorne el producto que más recaudó. Se define “recaudación” como cantidad de productos vendidos multiplicado por su valor.
+            System.out.println(daoProducto.elMasRecaudador());
 
-        System.out.println(daoProducto.elMasRecaudador());
+            //Escriba un programa JDBC que imprima una lista de clientes, ordenada por a cuál se le facturó más.
+            System.out.println("Lista de Clientes");
+            Iterator<Cliente> it = daoCliente.OrdenarPorRecaudacion().iterator();
+            while (it.hasNext()) {
+                Cliente c = it.next();
+                System.out.println("ID=" + c.getIdCliente() + ", Nombre: " + c.getNombre() +", Email: " +c.getEmail());
+            }
+
     }
 }
